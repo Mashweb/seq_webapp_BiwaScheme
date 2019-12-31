@@ -3,34 +3,34 @@
   <head>
     <meta charset="utf-8">
     <title>BiwaScheme</title>
-    <link href="/website/css/screen.css" rel="stylesheet" type="text/css">
-    <link href="/website/css/jquery.terminal-2.3.0.css" rel="stylesheet" type="text/css"></script>
-    <link href="/website/css/prism-coy.css" rel="stylesheet" type="text/css"></script>
-    <script src="/release/biwascheme-@VERSION@-min.js" type="text/javascript"></script>
-    <script src="/website/js/jquery.mousewheel.min.js" type="text/javascript"></script>
-    <script src="/website/js/jquery.timers.min.js" type="text/javascript"></script>
-    <script src="/website/js/jquery.cookie.min.js" type="text/javascript"></script>
-    <script src="/website/js/jquery.terminal-2.3.0.js" type="text/javascript"></script>
-    <script src="/website/js/prism.js" type="text/javascript"></script>
-    <script src="/website/js/prism-scheme.js" type="text/javascript"></script>
-    <script src="/website/js/jquery.terminal.prism.js" type="text/javascript"></script>
-    <script src="/website/js/keyboard.js" type="text/javascript"></script>
-    <script src="/website/js/biwascheme_terminal.js" type="text/javascript"></script>
+    <link href="../website/css/screen.css" rel="stylesheet" type="text/css">
+    <link href="../website/css/jquery.terminal-2.3.0.css" rel="stylesheet" type="text/css"></script>
+    <link href="../website/css/prism-coy.css" rel="stylesheet" type="text/css"></script>
+    <script src="../release/biwascheme-0.6.9-min.js" type="text/javascript"></script>
+    <script src="../website/js/jquery.mousewheel.min.js" type="text/javascript"></script>
+    <script src="../website/js/jquery.timers.min.js" type="text/javascript"></script>
+    <script src="../website/js/jquery.cookie.min.js" type="text/javascript"></script>
+    <script src="../website/js/jquery.terminal-2.3.0.js" type="text/javascript"></script>
+    <script src="../website/js/prism.js" type="text/javascript"></script>
+    <script src="../website/js/prism-scheme.js" type="text/javascript"></script>
+    <script src="../website/js/jquery.terminal.prism.js" type="text/javascript"></script>
+    <script src="../website/js/keyboard.js" type="text/javascript"></script>
+    <script src="../website/js/biwascheme_terminal.js" type="text/javascript"></script>
   </head>
   <body>
     <a href="https://github.com/biwascheme/biwascheme"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
     <div id="menu">
-      <a href="/index.html">
-        <img src="/website/images/biwascheme_logo.png" alt="logo"
+      <a href="../index.html">
+        <img src="../website/images/biwascheme_logo.png" alt="logo"
              title="BiwaScheme logo by @jcubic">
       </a>
       <ul>
-        <li><a href='/doc/features.html'>Features</a></li>
-        <li><a href='/doc/getting_started.html'>Getting Started</a></li>
-        <li><a href='/doc/reference.html'>Reference</a></li>
-        <li><a href='/doc/faq.html'>FAQ</a></li>
-        <li><a href='/doc/index.html'>Other docs</a></li>
+        <li><a href='../doc/features.html'>Features</a></li>
+        <li><a href='../doc/getting_started.html'>Getting Started</a></li>
+        <li><a href='../doc/reference.html'>Reference</a></li>
+        <li><a href='../doc/faq.html'>FAQ</a></li>
+        <li><a href='../doc/index.html'>Other docs</a></li>
       </ul>
     </div>
     <div id="content">
@@ -38,19 +38,21 @@
 <ul>
 <li>Most of basic features of R7RS</li>
 <li>Some of R6RS Standard Libraries and SRFIs
-(see <a href="/doc/conformance.html">doc/conformance</a> )</li>
+(see <a href="../doc/conformance.html">doc/conformance</a> )</li>
 <li>First-class continuation (<code>call/cc</code>)</li>
 </ul>
-<p>See <a href="/doc/reference.html">doc/reference</a> for full list of functions.</p>
+<p>See <a href="../doc/reference.html">doc/reference</a> for full list of functions.</p>
 <h3 id="macro">Macro</h3>
-<p>BiwaScheme does not have <code>syntax-rules</code> or <code>syntax-case</code>, but has <a href="/doc/reference.html#macro"><code>define-macro</code></a>.</p>
+<p>BiwaScheme does not have <code>syntax-rules</code> or <code>syntax-case</code>, but has <a href="../doc/reference.html#macro"><code>define-macro</code></a>.</p>
 <h3 id="javascript-language-interface">Javascript language interface</h3>
 <ul>
-<li>JavaScript object<ul>
+<li><p>JavaScript object</p>
+<ul>
 <li>js-eval js-ref, etc.</li>
 </ul>
 </li>
-<li>Timer<ul>
+<li><p>Timer</p>
+<ul>
 <li><code>(timer proc sec)</code> = setTimeout, etc.</li>
 <li><code>(sleep sec)</code><ul>
 <li>Blocking sleep. <code>(sleep 3)</code> will wait 3 seconds and then 
@@ -73,7 +75,7 @@ BiwaScheme resumes running the rest of the code. </li>
 </ul>
 </li>
 </ul>
-<p><a href="/doc/reference.html#js-interface">more...</a></p>
+<p><a href="../doc/reference.html#js-interface">more...</a></p>
 <h3 id="synchronous-interface">Synchronous interface</h3>
 <p>Some of the BiwaScheme library functions are implemented as synchronous
 functions.</p>
@@ -81,8 +83,7 @@ functions.</p>
 for <code>sec</code> seconds, and then the rest of the program will be evaluated.</p>
 <pre><code>(alert &quot;Hello&quot;)
 (sleep 3)
-(alert &quot;World&quot;)  ; Evaluated after 3 seconds
-</code></pre><p>Other synchronous functions are listed below.</p>
+(alert &quot;World&quot;)  ; Evaluated after 3 seconds</code></pre><p>Other synchronous functions are listed below.</p>
 <ul>
 <li><code>(http-request path)</code> =&gt; string</li>
 <li><code>(http-post path params)</code> =&gt; string</li>
@@ -105,8 +106,7 @@ $.get(&quot;/a&quot;, function(a){
 (define a (http-request &quot;/a&quot;))
 (define b (http-request &quot;/b&quot;))
 (define c (http-request &quot;/c&quot;))
-...
-</code></pre><h3 id="srfis">SRFIs</h3>
+...</code></pre><h3 id="srfis">SRFIs</h3>
 <p>BiwaScheme implements some SRFIs (<a href="http://srfi.schemers.org/">Scheme Requests for Implementation</a>).</p>
 <ul>
 <li>1 List Utilities <ul>
@@ -139,9 +139,9 @@ $.get(&quot;/a&quot;, function(a){
 </ul>
 </li>
 </ul>
-<h3 id="node-js-support">Node.js support</h3>
+<h3 id="nodejs-support">Node.js support</h3>
 <p>You can use BiwaScheme on the server-side with <code>npm install biwascheme</code>
-(<a href="/doc/getting_started.html#nodejs">more...</a>)</p>
+(<a href="../doc/getting_started.html#nodejs">more...</a>)</p>
     </div>
 
     <!-- Google Analytics -->
