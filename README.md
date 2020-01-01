@@ -1,182 +1,214 @@
-BiwaScheme
-==========
+# Sequentially Programmed Web App
 
-[![biwascheme logo](http://www.biwascheme.org/website/images/biwascheme_logo.png)](http://www.biwascheme.org)
+This project shows how a web application can be programmed sequentially.
+Basically this means its structure mirrors its execution flow.
 
-BiwaScheme is a Scheme interpreter written in JavaScript.
 
-Works with web browsers (including mobile devices) and Node.js.
+## Try It Now
 
-Demos
------
 
-see [http://www.biwascheme.org/](http://www.biwascheme.org/)
+Sequential programming of a web application is radically different
+from the currently dominant style of web-application programming, but it should
+be remembered that the dominant style of programming for many (probably most)
+*offline* applications is sequential. The sequential style of programming is
+suitable for a wide range of applications and application programmers
+because it models a program after the stepwise logic used to complete a
+program's goal. The sequential style of programming is the easiest style to
+master, all things being equal, because it straightforwardly mirrors our
+thinking about what the program must do to fulfil its purpose.
+It is interesting to explore the possibility of writing web applications
+in a sequential style because the dominant, non-sequential styles
+make it difficult to follow execution flow through the program's code
+and thus complicate program development, testing, and refactoring.
+The discussion thread
+["Node.js - A giant step backwards?"](https://news.ycombinator.com/item?id=3510758)
+presents problems of a relatively new style of web-application
+programming, namely event-driven programming for the web server,
+that has become popular in the last few years.
 
-Download
-========
+This README briefly explains how a traditional web application and a
+web application written in the newer event-driven style (*ala* Node.js) handle
+asynchronous events.
+Then it points out a working example of an application written for a
+continuation-based web server and online resources for learning important
+ideas about such applications. Finally it presents a continuation-based
+web application that runs entirely in the web browser--a single-page
+web application.
 
-* http://www.biwascheme.org/
 
-(Or you can just copy the file from [`./release`](release/).)
+## How Asynchronous Events Are Handled in Web Applications
 
-How to use
-==========
+Any program, simple or complex, that uses I/O (user I/O, disk reads,
+disk writes, or transfers of data between computers) must have a means of
+synchronizing itself with the completion of that I/O. For desktop applications,
+the operating system provides system calls, a scheduler, and library functions
+that allow the programmer to structure for his program to mirror
+the program's execution flow. For desktop applications, the waiting
+for completion of I/O can usually be neatly hidden within some function
+like read(), write(), getchar(), etc., but in most web applications written
+up to 2020, this mirroring is not possible, due to the stateless nature of
+the web. Not even a web application written to run entirely in the
+web browser (a single-page web application) can mirror program flow,
+due to the event-driven nature of JavaScript in the web browser.
 
-Just load biwascheme.js (or biwascheme-min.js) and write Scheme code.
+In 2020, web servers can be classified as event-driven (like Node.js) and
+non-event-driven (traditional web servers). An event-driven web server
+can react to many asynchronous events in real time, without holding up
+the main event loop.
 
-    <!DOCTYPE html>
-    <html>
-    <body>
+Web applications written for an event-driven web server and typical
+single-page web applications are structured using callbacks, deferreds,
+promises, or some form of continuation-passing style. Thus, their struction
+cannot mirror their flow. However, a web application written using *true*
+continuations *can* be structured to mirror its flow.
 
-    <div id="bs-console"></div>
 
-    <script src="biwascheme.js">
-    (display "hello, world!")
-    </script>
+## Traditional Web Applications vs. Web Applications Built upon Server-Side Web Continuations
 
-    </body>
-    </html>
+Very often, web applications interact with the user by building request
+pages that pass program state information from web page to web page in
+cookies or hidden form fields, something like this Racket Scheme code:
 
-How to use with node.js to run a biwa script
---------------------------------------------
+```
+	(define (sum query)
+	  (build-request-page "First number:" "/one" ""))
+	 
+	(define (one query)
+	  (build-request-page "Second number:"
+			      "/two"
+			      (cdr (assq 'number query))))
+	 
+	(define (two query)
+	  (let ([n (string->number (cdr (assq 'hidden query)))]
+		[m (string->number (cdr (assq 'number query)))])
+	    `(html (body "The sum is " ,(number->string (+ m n))))))
+	 
+	(hash-set! dispatch-table "sum" sum)
+	(hash-set! dispatch-table "one" one)
+	(hash-set! dispatch-table "two" two)
+```
 
-1. $ npm install biwascheme
-2. create a file a.scm:
+That is the typical, traditional programming style of writing a web application.
+Such a style is more complicated and unwieldy than a straightforward style
+employing server-side web continuations: 
 
-    (display "Hello, world!")
-    (newline)
+```
+	(define (sum2 query)
+	  (define m (get-number "First number:"))
+	  (define n (get-number "Second number:"))
+	  `(html (body "The sum is " ,(number->string (+ m n)))))
+```
 
-3. $ biwas a.scm
+Both the web server code and both versions of the application code are
+fully described in the section
+[Continuations](https://docs.racket-lang.org/more/#%28part._.Continuations%29)
+of the page
+[More: Systems Programming with Racket](https://docs.racket-lang.org/more/#%28part._.Continuations%29).
 
-How to use from inside node.js as a module
-------------------------------------------
+The reader is strongly encouraged to
+[download Racket](https://download.racket-lang.org/), load the
+[the finished Racket Scheme code](https://docs.racket-lang.org/more/step9.txt),
+and run the code&mdash;a five- to ten-minute exercise.
+The code can be loaded and run in Racket something like this (where 8080 is
+the port number to which the server responds and "step9.txt" is the full or
+relative pathname of the Racket Scheme code):
 
-1. $ npm install biwascheme
-2. create a file server.js:
+```
+        $ 𝐫𝐚𝐜𝐤𝐞𝐭
+        Welcome to Racket v7.5.
+        > (enter! "step9.txt")
+        "step9.txt"> (𝐬𝐞𝐫𝐯𝐞 𝟖𝟎𝟖𝟎)
+        #<procedure:...webcon/step9.txt:17:2>
+        "step9.txt"> 
+```
 
-    var BiwaScheme = require("biwascheme");
-    BiwaScheme.run("(+ 1 2)");
-    // or
-    // BiwaScheme.run_file("a.scm");
+(`$` and `>` are prompts.)
+After starting the program, you can use the web application locally
+by typing [http://localhost:8080/sum2](http://localhost:8080/sum2)
+into your web browser's address bar.
+The program asks for and waits for one number, then jumps to a second web page,
+where it asks for and waits for a second number, then jumps to a third web page,
+where it sums the two
+numbers. Along the way it stores continuations to remember its each halt
+after serving a page, even saving the first and second numbers.
+In case the user presses his browser's back button once or twice anywhere
+along the way, or retypes the URL of the second or first page, the program
+recalls its state when a number was typed into the respective page,
+and shows the number and again in its input form,
+just as the user originally typed it, and the user can change the number
+or accept it and continue the program as before.
 
-3. $ node server.js
+Section 5.2 of Christian Queinnec's paper
+['Inverting back the inversion of control or, Continuations versus page-centric programming'](https://pages.lip6.fr/Christian.Queinnec/PDF/www.pdf)
+describes a very similar web application but does not detail its implementation.
 
-Files
-=====
 
-* release/
-  + the following files are generated here with $ make
-    - biwascheme.js
-    - biwascheme-min.js
-    - node_biwascheme.js
-* demo/
-  + Demos
-* src/
-  + deps/
-     - Dependencies (jQuery, underscore)
-  + system/
-     - Source code of the interpreter
-  + library/
-     - Built-in library functions
-  + platform/
-     - Platform dependent code (browser, node, etc.)
-* test/
-  + Unit tests
-* tuplespace/
-  + (experimental) TupleSpace implemented in Scheme
-* web/
-  + HTMLs and CSS of www.biwascheme.org
-* www.biwascheme.org.js
-  + web server
+## Client-Side Web Continuations
 
-Building biwascheme.js
-----------------------
+Server-side web continuations are interesting because of the simplification
+they provide for web applications. However, the memory that they consume
+can easily become a problem. Since each website user has his own
+web browser, it would be convenient to put the continuations in the browser,
+naturally scaling the application.
+This way, a web server serving the web application to 10,000 or 1,000,000
+users is not burdened by a heavy price of memory for continuations.
+This Git project demonstrates a way to create a web application using
+client-side continuations. It includes
+[BiwaScheme](https://github.com/tomelam/BiwaScheme), a nearly complete
+implementation of R5RS Scheme language in JavaScript, as a submodule.
 
-Prerequisites:
+The test program, apart from supporting functions and macros,
+is just this:
 
-* make
-* sed
-* node, npm, npx (Node.js)
+```
+	(reset
+	  (with-handlers '((click-handler "#foo"))
+			 (let ((input (get-input)))
+			   (displayln "get-input returned")
+			   (displayln input))))
+```
 
-Make compiles src/\*.js into release/biwascheme.js.
+The macro ```with-handlers``` sets up any number of
+event handlers (```click```, ```mousedown```, ```mouseup```, ```mouseover```,
+```timeout```, etc.)
+and removes them when execution exits its block.
+The function ```get-input``` sets up a continuation that returns
+execution to that point only after an event has occurred.
 
-    $ npm install
-    $ make
+Here are instructions for running the application:
 
-Links
-=====
+1. Clone the Git repository for the demo:
+```
+	git clone --recurse-submodules git@github.com:tomelam/sequential_web_app_demo.git
+```
 
-- [Repository](https://github.com/biwascheme/biwascheme)
-- [Issues](https://github.com/biwascheme/biwascheme/issues)
-- [Mailing-list](http://groups.google.co.jp/group/biwascheme)
-- [Mailing-list(Japanese)](http://groups.google.co.jp/group/biwascheme-ja)
+2. The Git submodule ```BiwaScheme``` contains a file ```scheme.html```. Open it
+in a web browser, either as a file or as a URL. You will see jsScheme's
+```Input``` textarea and its ```Log``` textarea. To the right of the
+```Input``` textarea are buttons ```eval```, ```clear input```, and
+```clear log```.
 
-Development memos
-=================
+3. Type the following into the ```Input``` textarea, then press ```eval```.
+In the ````Log```` the input will be echoed and ```=> #lambda``` will be
+printed.
 
-How to add a new file
----------------------
+```
+	(reset
+	  (with-handlers '((click-handler "#foo"))
+			 (let ((input (get-input)))
+			   (displayln "get-input returned")
+			   (displayln input))))
+```
 
-* edit Makefile
-* edit src/development_loader.js
+4. Click on the word 'Input' near the top of the page. (This word is
+enclosed in an HTML ```<div>``` element having the ID ```foo```,
+so it is targeted by the ```click``` handler's
+event.) The following will be printed in the ```Log```:
+```
+	get-input returned
+	(click #obj<HTMLDivElement>)
+```
 
-How to release
---------------
-
-(moved to doc/dev/release.md)
-
-How to upgrade dependencies
----------------------------
-
-jQuery:
-* update src/deps/jquery.js
-
-underscore:
-* update src/deps/underscore.js
-* update node_modules/biwascheme/package.json
-
-underscore.string:
-* update src/deps/underscore.string.js
-* update node_modules/biwascheme/package.json
-
-Website
--------
-
-The source of www.biwascheme.org is in `./website`.
-
-### Run local website
-
-You can run the website locally with Node and express.
-
-    $ make
-    $ make website
-    $ npm install
-    $ node local_website.js
-    $ open http://localhost:7001
-
-License
-=======
-
-MIT-LICENSE
-
-BiwaScheme logo by [@jcubic](https://github.com/jcubic): [Creative Commons Attribution 3.0](http://creativecommons.org/licenses/by/3.0/)
-
-Acknowledgements
-================
-
-* Kent Dyvbig, Three implementation models for scheme
-  * http://www.cs.indiana.edu/~dyb/pubs/3imp.pdf
-
-* jsScheme
-  * http://alex.ability.ru/scheme.html (inavailable)
-
-* ExplorerCanvas (demo/excanvas.js)
-  * http://excanvas.sourceforge.net/
-
-Contact
-=======
-
-https://github.com/biwascheme/biwascheme
-
-Yutaka HARA (yhara) yutaka.hara.gmail.com
-http://twitter.com/yhara_en
+5. Click on the word 'Input' again. Confirm that nothing is added to the `Log`.
+This is because the click handler is automatically removed after the
+program falls through the `with-handlers` block.

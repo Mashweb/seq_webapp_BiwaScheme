@@ -1,0 +1,198 @@
+<h1>BiwaScheme</h1>
+<p><a href="http://www.biwascheme.org"><img src="http://www.biwascheme.org/website/images/biwascheme_logo.png" alt="biwascheme logo" /></a></p>
+<p>BiwaScheme is a Scheme interpreter written in JavaScript.</p>
+<p>Works with web browsers (including mobile devices) and Node.js.</p>
+<h2>Demos</h2>
+<p>see <a href="http://www.biwascheme.org/">http://www.biwascheme.org/</a></p>
+<h1>Download</h1>
+<ul>
+<li>http://www.biwascheme.org/</li>
+</ul>
+<p>(Or you can just copy the file from <a href="release/"><code>./release</code></a>.)</p>
+<h1>How to use</h1>
+<p>Just load biwascheme.js (or biwascheme-min.js) and write Scheme code.</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;div id=&quot;bs-console&quot;&gt;&lt;/div&gt;
+
+&lt;script src=&quot;biwascheme.js&quot;&gt;
+(display &quot;hello, world!&quot;)
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2>How to use with node.js to run a biwa script</h2>
+<ol>
+<li>
+<p>$ npm install biwascheme</p>
+</li>
+<li>
+<p>create a file a.scm:</p>
+<p>(display &quot;Hello, world!&quot;)
+(newline)</p>
+</li>
+<li>
+<p>$ biwas a.scm</p>
+</li>
+</ol>
+<h2>How to use from inside node.js as a module</h2>
+<ol>
+<li>
+<p>$ npm install biwascheme</p>
+</li>
+<li>
+<p>create a file server.js:</p>
+<p>var BiwaScheme = require(&quot;biwascheme&quot;);
+BiwaScheme.run(&quot;(+ 1 2)&quot;);
+// or
+// BiwaScheme.run_file(&quot;a.scm&quot;);</p>
+</li>
+<li>
+<p>$ node server.js</p>
+</li>
+</ol>
+<h1>Files</h1>
+<ul>
+<li>release/
+<ul>
+<li>the following files are generated here with $ make
+<ul>
+<li>biwascheme.js</li>
+<li>biwascheme-min.js</li>
+<li>node_biwascheme.js</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>demo/
+<ul>
+<li>Demos</li>
+</ul>
+</li>
+<li>src/
+<ul>
+<li>deps/
+<ul>
+<li>Dependencies (jQuery, underscore)</li>
+</ul>
+</li>
+<li>system/
+<ul>
+<li>Source code of the interpreter</li>
+</ul>
+</li>
+<li>library/
+<ul>
+<li>Built-in library functions</li>
+</ul>
+</li>
+<li>platform/
+<ul>
+<li>Platform dependent code (browser, node, etc.)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>test/
+<ul>
+<li>Unit tests</li>
+</ul>
+</li>
+<li>tuplespace/
+<ul>
+<li>(experimental) TupleSpace implemented in Scheme</li>
+</ul>
+</li>
+<li>web/
+<ul>
+<li>HTMLs and CSS of www.biwascheme.org</li>
+</ul>
+</li>
+<li>www.biwascheme.org.js
+<ul>
+<li>web server</li>
+</ul>
+</li>
+</ul>
+<h2>Building biwascheme.js</h2>
+<p>Prerequisites:</p>
+<ul>
+<li>make</li>
+<li>sed</li>
+<li>node, npm, npx (Node.js)</li>
+</ul>
+<p>Make compiles src/*.js into release/biwascheme.js.</p>
+<pre><code>$ npm install
+$ make
+</code></pre>
+<h1>Links</h1>
+<ul>
+<li><a href="https://github.com/biwascheme/biwascheme">Repository</a></li>
+<li><a href="https://github.com/biwascheme/biwascheme/issues">Issues</a></li>
+<li><a href="http://groups.google.co.jp/group/biwascheme">Mailing-list</a></li>
+<li><a href="http://groups.google.co.jp/group/biwascheme-ja">Mailing-list(Japanese)</a></li>
+</ul>
+<h1>Development memos</h1>
+<h2>How to add a new file</h2>
+<ul>
+<li>edit Makefile</li>
+<li>edit src/development_loader.js</li>
+</ul>
+<h2>How to release</h2>
+<p>(moved to doc/dev/release.md)</p>
+<h2>How to upgrade dependencies</h2>
+<p>jQuery:</p>
+<ul>
+<li>update src/deps/jquery.js</li>
+</ul>
+<p>underscore:</p>
+<ul>
+<li>update src/deps/underscore.js</li>
+<li>update node_modules/biwascheme/package.json</li>
+</ul>
+<p>underscore.string:</p>
+<ul>
+<li>update src/deps/underscore.string.js</li>
+<li>update node_modules/biwascheme/package.json</li>
+</ul>
+<h2>Website</h2>
+<p>The source of www.biwascheme.org is in <code>./website</code>.</p>
+<h3>Run local website</h3>
+<p>You can run the website locally with Node and express.</p>
+<pre><code>$ make
+$ make website
+$ npm install
+$ node local_website.js
+$ open http://localhost:7001
+</code></pre>
+<h1>License</h1>
+<p>MIT-LICENSE</p>
+<p>BiwaScheme logo by <a href="https://github.com/jcubic">@jcubic</a>: <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0</a></p>
+<h1>Acknowledgements</h1>
+<ul>
+<li>
+<p>Kent Dyvbig, Three implementation models for scheme</p>
+<ul>
+<li>http://www.cs.indiana.edu/~dyb/pubs/3imp.pdf</li>
+</ul>
+</li>
+<li>
+<p>jsScheme</p>
+<ul>
+<li>http://alex.ability.ru/scheme.html (inavailable)</li>
+</ul>
+</li>
+<li>
+<p>ExplorerCanvas (demo/excanvas.js)</p>
+<ul>
+<li>http://excanvas.sourceforge.net/</li>
+</ul>
+</li>
+</ul>
+<h1>Contact</h1>
+<p>https://github.com/biwascheme/biwascheme</p>
+<p>Yutaka HARA (yhara) yutaka.hara.gmail.com
+http://twitter.com/yhara_en</p>
