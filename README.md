@@ -3,11 +3,6 @@
 This project shows how a web application can be programmed sequentially.
 Basically this means its structure mirrors its execution flow.
 
-
-## Try It Now
-
-<div id="term"></div>
-
 Sequential programming of a web application is radically different
 from the currently dominant style of web-application programming, but it should
 be remembered that the dominant style of programming for many (probably most)
