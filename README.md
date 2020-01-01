@@ -6,6 +6,7 @@ Basically this means its structure mirrors its execution flow.
 
 ## Try It Now
 
+<div id="term"></div>
 
 Sequential programming of a web application is radically different
 from the currently dominant style of web-application programming, but it should
