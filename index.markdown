@@ -4,6 +4,20 @@ title: Sequential Programming
 ---
 <div id="term"></div>
 
+<div style="background-color:lightgrey; padding:20px;">
+  Test Area
+  <button id="button1" style="height:60px; width:100px;">Button #1</button>
+  <button id="button2" style="height:60px; width:100px;">Button #2</button>
+  <div id="div1"
+       style="float:left; height:30px; width:80px; background-color:yellow; padding:15px;">
+    Div #1
+  </div>
+  <div id="div2"
+       style="float:left; height:30px; width:80px; background-color:pink; padding:15px;">
+    Div #2
+  </div>
+</div>
+
 <h1>Sequentially Programmed Web App Demo</h1>
 
 This brief introduction to sequentially programmed web apps
@@ -16,7 +30,7 @@ programs in this manner.
 
 <h2>Try It Now</h2>
 
-Enter the following code in the biwascheme console below.
+Enter the following code in the BiwaScheme console above.
 (Always terminate code in the console with a RETURN.)
 
 {% highlight lisp %}
@@ -47,19 +61,6 @@ the event's data, ```display``` will print the type of event,
 and the program will pause until one of the handlers is triggered again,
 and so forth, until all four calls to ```get-input``` have returned.
 Then the program prints "Test finished."
-
-<div>
-  <button id="button1" style="height:60px; width:100px;">Button #1</button>
-  <button id="button2" style="height:60px; width:100px;">Button #2</button>
-  <div id="div1"
-       style="float:left; height:60px; width:100px; background-color:yellow;">
-    Div #1
-  </div>
-  <div id="div2"
-       style="float:left; height:60px; width:100px; background-color:green;">
-    Div #2
-  </div>
-</div>
 
 <h2>What Is Sequential Programming?</h2>
 
