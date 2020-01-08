@@ -261,4 +261,4 @@ sets up five event handlers:
 
 To set the focus on an element such as a button, you can click on that element.
 
-<a href="#sequentially-programmed-web-app-demo">Later hide this link.</a>
+<a id="link-to-top" href="#sequentially-programmed-web-app-demo">Later hide this link.</a>
