@@ -167,10 +167,16 @@ employing server-side web continuations:
 {% endhighlight %}
 
 Don't worry if you can't understand that yet.
+The main thing is to understand that this works,
+that the programming of the solution at the top level is perfectly direct,
+and that client-side web continuations even further simplify the programming.
+We will describe client-side web continuations in the next section.
+
+For the curious, we now describe the functions ```sum2``` and ```get-number```.
 ```sum2``` is the function that gets dispatched when the user visits
 ```http://localhost:8080/sum2```.
-```get-number``` does something remarkable, something only possible in Scheme
-language:
+The function ```get-number``` does something remarkable,
+something only possible in Scheme language:
 it sends a response to the user's request of a page like
 ```http://localhost:8080/k1578504361599.834?number=73&hidden=&enter=Enter```
 that looks to the user like this:
@@ -179,12 +185,14 @@ that looks to the user like this:
   <input type="hidden" name="hidden" value="">
   <input type="submit" name="enter" value="Enter">
 </form>
-then saves its place and suspends program execution until 
-the user submits a reply
-a new connection is created to 
-
-<code>`html`</code> is a template that creates a web page.
-The function ```get-number```
+then it saves its place and suspends program execution until 
+the user submits a reply,
+upon which a new connection is created to respond to the submission.
+The ```get-number``` function then revives program execution
+exactly where it left off.
+It converts the submitted number to a string and returns that,
+whereupon it is stored in a variable (m or n in the above case).
+<code>`html</code> is a template that creates and serves a web page.
 
 Both the web server code and both versions of the application code are
 fully described in the section
