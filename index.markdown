@@ -2,6 +2,7 @@
 layout: biwascheme
 title: Sequential Programming
 ---
+<div id="term"></div>
 
 <h1>Sequentially Programmed Web App Demo</h1>
 
@@ -59,8 +60,7 @@ Then the program prints "Test finished."
     Div #2
   </div>
 </div>
-<div id="term"></div>
-    
+
 <h2>What Is Sequential Programming?</h2>
 
 Sequential programming of a web application is radically different
@@ -260,5 +260,3 @@ sets up five event handlers:
 1. a handler triggered after 20 seconds if no other event is triggered first.
 
 To set the focus on an element such as a button, you can click on that element.
-
-<a id="link-to-top" href="#sequentially-programmed-web-app-demo">Later hide this link.</a>
