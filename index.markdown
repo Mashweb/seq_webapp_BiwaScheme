@@ -62,7 +62,7 @@ the first ```get-input```.
 When any of the events occurs ```get-input``` returns
 the event's data, ```display``` prints the type of event,
 and the program pauses until one of the handlers is triggered again,
-and so forth, until all four calls to ```get-input``` have returned.
+and so forth, until all five calls to ```get-input``` have returned.
 Then the program prints "Test finished."
 
 <h2>What Is Sequential Programming?</h2>
