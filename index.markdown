@@ -4,7 +4,7 @@ title: Sequential Programming
 ---
 <div id="term"></div>
 
-<div style="background-color:lightgrey; padding:20px;">
+<div style="background-color:lightgrey; padding:20px; margin: 0 0 30px 0;">
   Test Area
   <div>
     <button id="button1" style="height:60px; width:100px;">Button #1</button>
