@@ -185,7 +185,7 @@ that looks to the user like this:
   <input type="text" name="number" value="">
   <input type="hidden" name="hidden" value="">
   <input type="submit" name="enter" value="Enter">
-</form><br/>
+</form>
 or
 <form action="/k1578504381390.28" method="get">Second number:
   <input type="text" name="number" value="">
