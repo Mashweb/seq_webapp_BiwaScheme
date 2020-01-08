@@ -62,7 +62,7 @@ Then the program prints "Test finished."
 <div id="term"></div>
 <script type="text/javascript">$("a").get(1).click();</script>
     
-## What Is Sequential Programming?
+<h2>What Is Sequential Programming?</h2>
 
 Sequential programming of a web application is radically different
 from the dominant style of web-application programming, but it should
