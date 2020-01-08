@@ -261,4 +261,4 @@ sets up five event handlers:
 
 To set the focus on an element such as a button, you can click on that element.
 
-<script type="text/javascript">window.scrollTo(0,0);</script>
+<a href="#sequentially-programmed-web-app-demo">Later hide this link.</a>
