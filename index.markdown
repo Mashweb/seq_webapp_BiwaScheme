@@ -272,7 +272,7 @@ The core of the test program is just this:
                 (click-handler "#div2")
                 (keydown-handler "#button1")
                 (keydown-handler "#button2")
-                (timeout-handler test-timeout 20000))
+                (timeout-handler test-timeout 10000))
                (display (get-input))
                (display (get-input))
                (display (get-input))
@@ -301,6 +301,6 @@ sets up five event handlers:
 1. a handler triggered by a keypress when the keyboard input focus is on the
 ```button``` element having the ID ```button2```,
 
-1. a handler triggered after 20 seconds if no other event is triggered first.
+1. a handler triggered after 10 seconds if no other event is triggered first.
 
 To set the focus on an element such as a button, you can click on that element.
