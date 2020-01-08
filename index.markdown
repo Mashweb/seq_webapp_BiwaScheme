@@ -50,17 +50,17 @@ Then the program prints "Test finished."
 <div>
   <button id="button1" style="height:60px; width:100px;">Button #1</button>
   <button id="button2" style="height:60px; width:100px;">Button #2</button>
-  <div id="div1" style="height:100px; width:100px; background-color:yellow;"
-       display="inline">
+  <div id="div1"
+       style="float:left; height:100px; width:100px; background-color:yellow;">
     Div #1
   </div>
-  <div id="div2" style="height:100px; width:100px; background-color:green;"
-       display="inline">
+  <div id="div2"
+       style="float:left; height:100px; width:100px; background-color:green;">
     Div #2
   </div>
 </div>
 <div id="term"></div>
-<script type="text/javascript">$("a").get(1).click();</script>
+<script type="text/javascript">window.scrollTo(0,0);</script>
     
 <h2>What Is Sequential Programming?</h2>
 
