@@ -6,15 +6,17 @@ title: Sequential Programming
 
 <div style="background-color:lightgrey; padding:20px;">
   Test Area
-  <button id="button1" style="height:60px; width:100px;">Button #1</button>
-  <button id="button2" style="height:60px; width:100px;">Button #2</button>
-  <div id="div1"
-       style="float:left; height:30px; width:80px; background-color:yellow; padding:15px;">
-    Div #1
-  </div>
-  <div id="div2"
-       style="float:left; height:30px; width:80px; background-color:pink; padding:15px;">
-    Div #2
+  <div>
+    <button id="button1" style="height:60px; width:100px;">Button #1</button>
+    <button id="button2" style="height:60px; width:100px;">Button #2</button>
+    <div id="div1"
+	 style="float:left; height:30px; width:80px; background-color:yellow; padding:15px;">
+      Div #1
+    </div>
+    <div id="div2"
+	 style="float:left; height:30px; width:80px; background-color:pink; padding:15px;">
+      Div #2
+    </div>
   </div>
 </div>
 
