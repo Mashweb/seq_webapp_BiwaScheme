@@ -168,13 +168,13 @@ employing server-side web continuations:
 
 Don't worry if you can't understand that yet.
 ```sum2``` is the function that gets dispatched when the user visits
-http://localhost:8081/sum2.
-```get-number``` does something amazing, something only possible in Scheme
+```http://localhost:8080/sum2```.
+```get-number``` does something remarkable, something only possible in Scheme
 language:
 it sends a response to the user's request of a page like
-http://localhost:8080/k1578504361599.834?number=73&hidden=&enter=Enter
+```http://localhost:8080/k1578504361599.834?number=73&hidden=&enter=Enter```
 that looks to the user like this:
-<form action="/k1578504381390.28" method="get">Second number:
+<form action="/k1578504381390.28" method="get">First number:
   <input type="text" name="number" value="">
   <input type="hidden" name="hidden" value="">
   <input type="submit" name="enter" value="Enter">
@@ -183,8 +183,8 @@ then saves its place and suspends program execution until
 the user submits a reply
 a new connection is created to 
 
-````html``` is a template that creates a web page.
-The function ```get-number``` 
+``html` is a template that creates a web page.
+The function `get-number`
 
 Both the web server code and both versions of the application code are
 fully described in the section
