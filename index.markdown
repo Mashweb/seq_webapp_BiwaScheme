@@ -75,24 +75,24 @@ suitable for a wide range of applications and application programmers
 because it models a program after the stepwise logic used to complete a
 program's goal. The sequential style of programming is the easiest style to
 master, all things being equal, because it straightforwardly mirrors our
-thinking about what the program must do to fulfil its purpose, step by step.
+step-by-step thinking about what the program must do to fulfil its purpose.
 It is interesting to explore the possibility of writing web applications
 in a sequential style because the dominant, non-sequential styles
-make it difficult to follow execution flow through the program's code.
+make it difficult to follow execution flow through a program's code.
 This difficulty complicates program development, testing, and refactoring.
 The discussion thread
 ["Node.js - A giant step backwards?"](https://news.ycombinator.com/item?id=3510758)
-presents some of the issues a programmer faces when he uses
-a relatively new style of non-sequential web-application
-programming, namely event-driven programming on the web server.
+presents some of the issues a programmer faces when he writes
+a relatively new kind of non-sequential web application,
+namely a web application written for an event-driven web server.
 
 This introduction to sequentially programmed web apps
 briefly explains how asynchronous events are handled both
 by a traditional web application and by a
-web application written in the newer event-driven style (*ala* Node.js).
+web application written for an event-driven web server (*ala* Node.js).
 Then it points out a working example of an application written for a
 continuation-based web server and online resources for learning important
-ideas about such applications.
+things about such applications.
 Finally it presents a sequentially programmed, continuation-based
 web application that runs entirely in the web browser--a single-page
 web application.
@@ -103,7 +103,7 @@ Any program, simple or complex, that uses I/O (user I/O, disk reads,
 disk writes, or transfers of data between computers) must have a means of
 synchronizing itself with the completion of that I/O. For desktop applications,
 the operating system provides system calls, a scheduler, and library functions
-that allow the programmer to structure for his program to mirror
+that allow the programmer to structure his program to mirror
 the program's execution flow. For desktop applications, the waiting
 for completion of I/O can usually be neatly hidden within some function
 like read(), write(), getchar(), etc., but in most web applications written
@@ -119,7 +119,7 @@ the main event loop.
 
 Web applications written for an event-driven web server and typical
 single-page web applications are structured using callbacks, deferreds,
-promises, or some form of continuation-passing style. Thus, their struction
+promises, or some form of continuation-passing style. Thus, their structure
 cannot mirror their flow. However, a web application written using <em>true</em>
 continuations <em>can</em> be structured to mirror its flow.
 
@@ -153,9 +153,9 @@ cookies or hidden form fields, something like this Racket Scheme code:
 Don't worry if you can't understand all of that.
 Get the gist of it: program flow is from page to page and
 each page handles a particular event, the input of a number by the user.
-That is the typical, traditional programming style of writing a web application.
-Such a style is more complicated and unwieldy than a straightforward style
-employing server-side web continuations:
+That is the typical, traditional programming style of a web application.
+Such a style is more complicated and unwieldy than
+a direct, straightforward style employing server-side web continuations:
 
 {% highlight lisp %}
 
@@ -167,31 +167,38 @@ employing server-side web continuations:
 {% endhighlight %}
 
 Don't worry if you can't understand that yet.
-The main thing is to understand that this works,
+The main thing is to understand that it works,
 that the programming of the solution at the top level is perfectly direct,
 and that client-side web continuations even further simplify the programming.
-We will describe client-side web continuations in the next section.
 
-For the curious, we now describe the functions ```sum2``` and ```get-number```.
-```sum2``` is the function that gets dispatched when the user visits
+We will describe client-side web continuations in the next section, but
+for the curious, we now describe the functions ```sum2``` and ```get-number```.
+The funtion ```sum2``` gets dispatched when the user visits
 ```http://localhost:8080/sum2```.
 The function ```get-number``` does something remarkable,
 something only possible in Scheme language:
 it sends a response to the user's request of a page like
+```http://localhost:8080/sum2``` or
 ```http://localhost:8080/k1578504361599.834?number=73&hidden=&enter=Enter```
 that looks to the user like this:
 <form action="/k1578504381390.28" method="get">First number:
   <input type="text" name="number" value="">
   <input type="hidden" name="hidden" value="">
   <input type="submit" name="enter" value="Enter">
+</form><br/>
+or
+<form action="/k1578504381390.28" method="get">Second number:
+  <input type="text" name="number" value="">
+  <input type="hidden" name="hidden" value="">
+  <input type="submit" name="enter" value="Enter">
 </form>
-then it saves its place and suspends program execution until 
-the user submits a reply,
+then it *saves its place and suspends program execution until 
+the user submits a reply*,
 upon which a new connection is created to respond to the submission.
-The ```get-number``` function then revives program execution
-exactly where it left off.
+The ```get-number``` function then *revives program execution
+exactly where it left off*.
 It converts the submitted number to a string and returns that,
-whereupon it is stored in a variable (m or n in the above case).
+whereupon it is stored in a variable (```m``` or ```n``` in the above case).
 <code>`html</code> is a template that creates and serves a web page.
 
 Both the web server code and both versions of the application code are
