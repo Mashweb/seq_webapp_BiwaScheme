@@ -183,8 +183,8 @@ then saves its place and suspends program execution until
 the user submits a reply
 a new connection is created to 
 
-``html` is a template that creates a web page.
-The function `get-number`
+<code>`html`</code> is a template that creates a web page.
+The function ```get-number```
 
 Both the web server code and both versions of the application code are
 fully described in the section
