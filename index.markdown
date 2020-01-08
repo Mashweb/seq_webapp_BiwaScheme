@@ -51,16 +51,15 @@ Then the program prints "Test finished."
   <button id="button1" style="height:60px; width:100px;">Button #1</button>
   <button id="button2" style="height:60px; width:100px;">Button #2</button>
   <div id="div1"
-       style="float:left; height:100px; width:100px; background-color:yellow;">
+       style="float:left; height:60px; width:100px; background-color:yellow;">
     Div #1
   </div>
   <div id="div2"
-       style="float:left; height:100px; width:100px; background-color:green;">
+       style="float:left; height:60px; width:100px; background-color:green;">
     Div #2
   </div>
 </div>
 <div id="term"></div>
-<script type="text/javascript">window.scrollTo(0,0);</script>
     
 <h2>What Is Sequential Programming?</h2>
 
@@ -261,3 +260,5 @@ sets up five event handlers:
 1. a handler triggered after 20 seconds if no other event is triggered first.
 
 To set the focus on an element such as a button, you can click on that element.
+
+<script type="text/javascript">window.scrollTo(0,0);</script>
