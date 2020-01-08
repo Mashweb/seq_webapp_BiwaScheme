@@ -47,7 +47,15 @@ and the program will pause until one of the handlers is triggered again,
 and so forth, until all four calls to ```get-input``` have returned.
 Then the program prints "Test finished."
 
+<div>
+  <button id="button1" style="height:60px; width:100px;"></button>
+  <button id="button2" style="height:60px; width:100px;"></button>
+  <div id="div1" style="height:100px; width:100px; backgroundColor:yellow;">
+  </div>
+  <div id="div2" style="height:100px; width:100px; backgroundColor:green;">
+  </div>
 <div id="term"></div>
+<script type="text/javascript">$("#button1").get(0).click();</script>
     
 ## What Is Sequential Programming?
 
