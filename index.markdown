@@ -54,13 +54,14 @@ Enter the following code in the BiwaScheme console above.
 
 The code defines a Scheme function named ```test```.
 Now whenever you enter ```(reset (test))``` into the console the test will run.
+Try it: enter ```(reset (test))``` into the console.
 ```with-handlers``` sets up two click handlers, two keydown handlers,
 and a timeout handler.
 Until one of those events occurs, the program will not proceed through
 the first ```get-input```.
-When any of the events occurs ```get-input``` will return
-the event's data, ```display``` will print the type of event,
-and the program will pause until one of the handlers is triggered again,
+When any of the events occurs ```get-input``` returns
+the event's data, ```display``` prints the type of event,
+and the program pauses until one of the handlers is triggered again,
 and so forth, until all four calls to ```get-input``` have returned.
 Then the program prints "Test finished."
 
@@ -74,23 +75,25 @@ suitable for a wide range of applications and application programmers
 because it models a program after the stepwise logic used to complete a
 program's goal. The sequential style of programming is the easiest style to
 master, all things being equal, because it straightforwardly mirrors our
-thinking about what the program must do to fulfil its purpose.
+thinking about what the program must do to fulfil its purpose, step by step.
 It is interesting to explore the possibility of writing web applications
 in a sequential style because the dominant, non-sequential styles
 make it difficult to follow execution flow through the program's code.
-The difficulty complicates program development, testing, and refactoring.
+This difficulty complicates program development, testing, and refactoring.
 The discussion thread
 ["Node.js - A giant step backwards?"](https://news.ycombinator.com/item?id=3510758)
-presents some of the problems of a relatively new style of web-application
-programming, namely event-driven programming for the web server,
-that has become popular in the last few years.
+presents some of the issues a programmer faces when he uses
+a relatively new style of non-sequential web-application
+programming, namely event-driven programming on the web server.
 
-This introduction briefly explains how a traditional web application and a
-web application written in the newer event-driven style (<em>ala</em> Node.js)
-handle asynchronous events.
+This introduction to sequentially programmed web apps
+briefly explains how asynchronous events are handled both
+by a traditional web application and by a
+web application written in the newer event-driven style (*ala* Node.js).
 Then it points out a working example of an application written for a
 continuation-based web server and online resources for learning important
-ideas about such applications. Finally it presents a continuation-based
+ideas about such applications.
+Finally it presents a sequentially programmed, continuation-based
 web application that runs entirely in the web browser--a single-page
 web application.
 
@@ -147,6 +150,9 @@ cookies or hidden form fields, something like this Racket Scheme code:
 
 {% endhighlight %}
 
+Don't worry if you can't understand all of that.
+Get the gist of it: program flow is from page to page and
+each page handles a particular event, the input of a number by the user.
 That is the typical, traditional programming style of writing a web application.
 Such a style is more complicated and unwieldy than a straightforward style
 employing server-side web continuations:
@@ -155,10 +161,30 @@ employing server-side web continuations:
 
 (define (sum2 query)
   (define m (get-number "First number:"))
-			(define n (get-number "Second number:"))
-			`(html (body "The sum is " ,(number->string (+ m n)))))
+  (define n (get-number "Second number:"))
+  `(html (body "The sum is " ,(number->string (+ m n)))))
 
 {% endhighlight %}
+
+Don't worry if you can't understand that yet.
+```sum2``` is the function that gets dispatched when the user visits
+http://localhost:8081/sum2.
+```get-number``` does something amazing, something only possible in Scheme
+language:
+it sends a response to the user's request of a page like
+http://localhost:8080/k1578504361599.834?number=73&hidden=&enter=Enter
+that looks to the user like this:
+<form action="/k1578504381390.28" method="get">Second number:
+  <input type="text" name="number" value="">
+  <input type="hidden" name="hidden" value="">
+  <input type="submit" name="enter" value="Enter">
+</form>
+then saves its place and suspends program execution until 
+the user submits a reply
+a new connection is created to 
+
+````html``` is a template that creates a web page.
+The function ```get-number``` 
 
 Both the web server code and both versions of the application code are
 fully described in the section
