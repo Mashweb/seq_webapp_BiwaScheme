@@ -48,14 +48,18 @@ and so forth, until all four calls to ```get-input``` have returned.
 Then the program prints "Test finished."
 
 <div>
-  <button id="button1" style="height:60px; width:100px;"></button>
-  <button id="button2" style="height:60px; width:100px;"></button>
-  <div id="div1" style="height:100px; width:100px; backgroundColor:yellow;">
+  <button id="button1" style="height:60px; width:100px;">Button #1</button>
+  <button id="button2" style="height:60px; width:100px;">Button #2</button>
+  <div id="div1" style="height:100px; width:100px; background-color:yellow;"
+       display="inline-block">
+    Div #1
   </div>
-  <div id="div2" style="height:100px; width:100px; backgroundColor:green;">
+  <div id="div2" style="height:100px; width:100px; background-color:green;"
+       display="inline-block">
+    Div #2
   </div>
 <div id="term"></div>
-<script type="text/javascript">$("#button1").get(0).click();</script>
+<script type="text/javascript">$("a").get(1).click();</script>
     
 ## What Is Sequential Programming?
 
