@@ -199,7 +199,7 @@ The ```get-number``` function then *revives program execution
 exactly where it left off*.
 It converts the submitted number to a string and returns that,
 whereupon it is stored in a variable (```m``` or ```n``` in the above case).
-<code>`html</code> is a template that creates and serves a web page.
+``` `html``` is a template that creates and serves a web page.
 
 Both the web server code and both versions of the application code are
 fully described in the section
@@ -284,7 +284,7 @@ The macro ```with-handlers``` sets up any number of
 event handlers (```click```, ```mousedown```, ```mouseup```, ```mouseover```,
 ```keydown```, ```keyup```, ```timout```, etc.) and removes them
 when execution exits its block.
-The function <code>get-input</code> sets up a continuation that returns
+The function ```get-input``` sets up a continuation that returns
 execution to that point only after an event has occurred.
 The invocation of ```with-handlers``` in our test program
 sets up five event handlers:
