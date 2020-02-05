@@ -5,7 +5,7 @@ title: Sequential Programming
 <div id="term"></div>
 
 <div id="testarea" style="background-color:lightgrey; padding:20px; margin: 30px 0 30px 0;">
-  Test Area
+  Test Area 1: Simple Sequentially Programmed Web App
   <div>
     <button id="button1" style="height:60px; width:100px;">Button #1</button>
     <button id="button2" style="height:60px; width:100px;">Button #2</button>
@@ -18,6 +18,9 @@ title: Sequential Programming
       Div #2
     </div>
   </div>
+</div>
+<div id="testarea2" style="height:auto; overflow:auto; width:200px; background-color:lightgrey; padding:20px; margin: 30px 0 30px 0;">
+  Test Area 2: Calculator Web App, Programmed Sequentially<br/>
 </div>
 
 <h1>Sequentially Programmed Web App Demo</h1>

@@ -1,6 +1,6 @@
 ;; Function for adding an mwc-button to the page.
 (define (add-calculator-button label)
-  (element-append-child! (getelem "#testarea") (make-mwc-button label)))
+  (element-append-child! (getelem "#testarea2") (make-mwc-button label)))
 
 (define i 0)
 (repeat 10
