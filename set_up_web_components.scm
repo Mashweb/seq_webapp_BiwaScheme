@@ -17,3 +17,10 @@
    type "text/javascript"
    "import('https://unpkg.com/@material/mwc-button/mwc-button.js?module');"
    ))
+
+;; Function to make an mwc-button.
+(define (make-mwc-button arg)
+  (if (number? arg)
+      (define mwc-button (element-new `(mwc-button ,(number->string arg) raised "")))
+      (define mwc-button (element-new `(mwc-button ,arg raised ""))))
+  mwc-button)

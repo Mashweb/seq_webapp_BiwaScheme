@@ -54,14 +54,6 @@
     (cons (car list)
           (remove item (cdr list))))))
 
-;; Adaptation of the factorial at https://wiki.c2.com/?SchemeIdioms :
-;; See also _ANSI Common Lisp_, p. 164 and _Teach Yourself Scheme_, Chapter 8.
-(define-macro (for n expr)
-  `(let loop ((i 1))
-     (if (>= i ,n)
-	 ,expr
-	 (loop (+ 1 i) ,expr))))
-
 ;; This is wrong. It creates an infinite loop.
 ;;(define-macro (while test expr)
 ;;  `(let loop ()
@@ -69,6 +61,21 @@
 ;;	 (begin
 ;;	   ,expr
 ;;	   (loop ,test ,expr)))))
+
+;; This is from the unit tests (https://github.com/biwascheme/biwascheme/blob/master/test/unit.js):
+;;(let1 ls '() (dotimes (x 3 ls) (set! ls (cons x ls))))
+
+;; This almost works.
+;;(dotimes '(print 1 5))
+
+;; Define a simple iterator (which actually uses tail-call rescursion):
+;; Adaptation of the factorial at https://wiki.c2.com/?SchemeIdioms .
+;; See also _ANSI Common Lisp_, p. 164 and _Teach Yourself Scheme_, Chapter 8.
+(define-macro (repeat n expr)
+  `(let loop ((i 1))
+     (if (>= i ,n)
+	 ,expr
+	 (loop (+ 1 i) ,expr))))
 
 (define-macro (js-call% func . args)
   `(js-call (js-eval ,func) ,@args))
