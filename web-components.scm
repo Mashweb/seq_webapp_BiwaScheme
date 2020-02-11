@@ -19,8 +19,8 @@
    ))
 
 ;; Function to make an mwc-button.
-(define (make-mwc-button arg)
+(define (make-mwc-button arg class)
   (if (number? arg)
-      (define mwc-button (element-new `(mwc-button ,(number->string arg) raised "")))
-      (define mwc-button (element-new `(mwc-button ,arg raised ""))))
+      (define mwc-button (element-new `(mwc-button class "button" ,(number->string arg) raised "")))
+      (define mwc-button (element-new `(mwc-button class "button" ,arg raised ""))))
   mwc-button)

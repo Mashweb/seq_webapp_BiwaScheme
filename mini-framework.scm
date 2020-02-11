@@ -1,3 +1,6 @@
+
+;;;; shift-reset
+
 (define-macro (reset . prog)
   `(*reset (lambda () ,@prog)))
 
@@ -29,16 +32,13 @@
                     (reset (k v)))))))))
 
 ;;;; utils
+;;;; (Some things I'm used to from Common Lisp)
 
 (define first car)
 (define second cadr)
 (define third caddr)
 
 (define rest cdr)
-
-(define (displayln text)
-  (display text)
-  (newline))
 
 (define-macro (push! item place)
   `(set! ,place (cons ,item ,place)))
@@ -54,13 +54,31 @@
     (cons (car list)
           (remove item (cdr list))))))
 
-;; This is wrong. It creates an infinite loop.
-;;(define-macro (while test expr)
-;;  `(let loop ()
-;;     (if ,test
-;;	 (begin
-;;	   ,expr
-;;	   (loop ,test ,expr)))))
+(define-macro (when cond . body)
+  `(if ,cond (begin ,@body)))
+
+(define-macro (unless cond . body)
+  `(if (not ,cond) (begin ,@body)))
+
+;;;; Some other utils
+
+(define-macro (while test expr)
+  `(let loop ()
+     (when ,test
+	   ,expr
+	   (loop))))
+
+(define (displayln text)
+  (display text)
+  (newline))
+
+(define-macro (wind-protect setup teardown . body)
+  (let ((result-g (gensym "RESULT")))
+    `(begin
+       ,setup
+       (let ((,result-g (begin ,@body)))
+         ,teardown
+         ,result-g))))
 
 ;; This is from the unit tests (https://github.com/biwascheme/biwascheme/blob/master/test/unit.js):
 ;;(let1 ls '() (dotimes (x 3 ls) (set! ls (cons x ls))))
@@ -71,11 +89,14 @@
 ;; Define a simple iterator (which actually uses tail-call rescursion):
 ;; Adaptation of the factorial at https://wiki.c2.com/?SchemeIdioms .
 ;; See also _ANSI Common Lisp_, p. 164 and _Teach Yourself Scheme_, Chapter 8.
-(define-macro (repeat n expr)
-  `(let loop ((i 1))
-     (if (>= i ,n)
-	 ,expr
-	 (loop (+ 1 i) ,expr))))
+(define-macro (repeat n . body)
+  (let ((i (gensym)))
+    `(let loop ((,i 1))
+       ,@body
+       (if (< ,i ,n)
+           (loop (+ 1 ,i))))))
+
+;;;; JS stuff
 
 (define-macro (js-call% func . args)
   `(js-call (js-eval ,func) ,@args))
@@ -83,24 +104,19 @@
 (define-macro (js-lambda args . body)
   `(js-closure (lambda ,args ,@body)))
 
-(define-macro (wind-protect setup teardown . body)
-  (let ((result-g (gensym "RESULT")))
-    `(begin
-       ,setup
-       (let ((,result-g (begin ,@body)))
-         ,teardown
-         ,result-g))))
-
 ;;;; with-handlers
 
 (define (input-listener-cont . args)
   (display "Handler called with no listener continuation up"))
 
+(define (call-with-handlers handlers fn)
+  (wind-protect
+      (setup-handlers handlers)
+      (remove-handlers handlers)
+    (fn)))
+
 (define-macro (with-handlers handlers . body)
-  `(wind-protect
-       (setup-handlers ',handlers)
-       (remove-handlers ',handlers)
-     ,@body))
+  `(call-with-handlers ',handlers (lambda () ,@body)))
 
 (define (setup-handlers handlers)
   (process-handlers handlers second))
