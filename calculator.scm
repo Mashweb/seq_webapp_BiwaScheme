@@ -1,5 +1,5 @@
 (load "mini-framework.scm")
-(load "set_up_web_components.scm")
+(load "web-components.scm")
 
 ;; Function for adding an mwc-button to the page.
 (define (add-calculator-button label)
