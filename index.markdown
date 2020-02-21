@@ -35,7 +35,7 @@ programs in this manner.
 
 <h2>Try It Now</h2>
 
-Enter the following code in the BiwaScheme console above.
+Enter the following code into the BiwaScheme console above.
 (Always terminate code in the console with a RETURN.)
 
 {% highlight lisp %}
@@ -67,6 +67,40 @@ the event's data, ```display``` prints the type of event,
 and the program pauses until one of the handlers is triggered again,
 and so forth, until all five calls to ```get-input``` have returned.
 Then the program prints "Test finished."
+
+To try a more complicated web app, whose code nevertheless still looks
+quite simple, enter the following code into the BiwaScheme console above.
+
+{% highlight lisp %}
+
+(load "calculator.scm")
+
+{% endhighlight %}
+
+The app is a simple calculator with addition, subtraction, multiplication,
+and division. Here is its main loop:
+
+{% highlight lisp %}
+
+  (with-handlers ((click-handler ".button"))
+    (let* ((btn (js-ref (second (get-input)) "target"))
+           (text (js-ref btn "innerText")))
+      (case text
+        (("+" "-" "*" "/")
+         (when (not (= value2 0))
+           (set! value1 value2))
+         (set! value2 0)
+         (set! op (string->symbol text)))
+        (("=")
+         (when op
+           (set! value1 ((eval op) value1 value2))
+           (set! value2 0)))
+        (else
+         (set! value2 (+ (* value2 10) (string->number text)))))
+      (if op
+          (format #t "~a ~a ~a~%" value1 (symbol->string op) value2)
+          (format #t "~a~%" value2))))
+{% endhighlight %}
 
 <h2>What Is Sequential Programming?</h2>
 
